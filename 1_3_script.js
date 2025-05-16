@@ -36,7 +36,7 @@ function locomotiveAnimation() {
 
   // after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
   ScrollTrigger.refresh();
-    }
+   }
 
 function loadingAnimation(){
     let tl = gsap.timeline();
@@ -89,11 +89,11 @@ function loadingAnimation(){
     tl.from("#hero1, #page2",{
       opacity : 0,
     },"-=1.2") // "-=1.2" helps to run t1.from("#hero1, #page2") before others
-    }
+   }
 
 function curserAnimation(){
   document.addEventListener("mousemove",function(dets){
-    gsap.to("#curser",{
+    gsap.to(".mousefollower",{
       left : dets.x,
       top : dets.y
     })
@@ -104,7 +104,7 @@ function curserAnimation(){
   var video = document.querySelector("#video-container video")
   videoContainer.addEventListener("mouseenter", function () {
     videoContainer.addEventListener("mousemove", function (dets) {
-      gsap.to("#curser", {
+      gsap.to(".mousefollower", {
         opacity: 0
       });
       gsap.to("#video-cursor", {
@@ -114,7 +114,7 @@ function curserAnimation(){
     });
   });
   videoContainer.addEventListener("mouseleave", function () {
-    gsap.to("#curser", {
+    gsap.to(".mousefollower", {
       opacity: 1
 
     });
@@ -144,56 +144,7 @@ function curserAnimation(){
       flag = 0
     }
   })
-}
-
-//   var videoContainer = document.querySelector("#video-container")
-//   var video = document.querySelector("#video-container video")
-//   videoContainer.addEventListener("mouseenter",function(){
-//     videoContainer.addEventListener("mousemove",function(dets){
-//       gsap.to("#curser",{
-//         opacity: 0, 
-//         // display: "none", both are same 
-//       })
-//       gsap.to("#video-cursor",{
-//         left: dets.x-510,
-//         top: dets.y-240,
-//       })
-//     })
-//   })
-//   videoContainer.addEventListener("mouseleave",function(){
-//     gsap.to("#curser"),{
-//       opacity: 1,
-//     }
-//   })
-//   gsap,to("#video-cursor",{
-//     left: "80%",
-//     top: "-10%",
-//   })
-    
-//   var flag = 0
-//   videoContainer.addEventListener("click", function () {
-//     if (flag == 0) {
-//       video.play()
-//       video.style.opacity = 1
-//       document.querySelector("#video-cursor").innerHTML = `<i class="ri-pause-mini-fill"></i>`
-//       gsap.to("#video-cursor", {
-//         scale: 0.5
-//       })
-//       flag = 1
-//     } else {
-//       video.pause()
-//       video.style.opacity = 0
-//       document.querySelector("#video-cursor").innerHTML = `<i class="ri-play-mini-fill"></i>`
-//       gsap.to("#video-cursor", {
-//         scale: 1
-//       })
-//       flag = 0
-//     }
-//   })
-// }
-
- 
-
+   }
 
 // function curserAnimation() {
 //   Shery.mouseFollower({
@@ -214,27 +165,74 @@ function sheryAnimation(){
       })
     }
 
+function flagAnimation(){
+      document.addEventListener("mousemove",function(dets){
+        gsap.to("#flag",{
+          x: dets.x,
+          y: dets.y
+        })
+      })
+      document.querySelector("#hero3").addEventListener("mouseenter",function(){
+        gsap.to("#flag",{
+          opacity: 1
+        })
+      })
+      document.querySelector("#hero3").addEventListener("mouseleave",function(){
+        gsap.to("#flag",{
+          opacity: 0
+        })
+      })
+    }
+
+function footerAnimation() {
+
+      var clutter = ""
+      var clutter2 = ""
+      
+      document.querySelector("#footer h1").textContent.split("").forEach(function (elem) {
+        clutter += `<span>${elem}</span>`
+      })
+      document.querySelector("#footer h1").innerHTML = clutter
+
+      document.querySelector("#footer h2").textContent.split("").forEach(function (elem) {
+        clutter2 += `<span>${elem}</span>`
+      })
+      document.querySelector("#footer h2").innerHTML = clutter2
+    
+    
+      document.querySelector("#footer-text").addEventListener("mouseenter", function () {
+        gsap.to("#footer h1 span", {
+          opacity: 0,
+          stagger: 0.05
+        })
+        gsap.to("#footer h2 span", {
+          delay: 0.35,
+          opacity: 1,
+          stagger: 0.1
+        })
+      })
+      document.querySelector("#footer-text").addEventListener("mouseleave", function () {
+        gsap.to("#footer h1 span", {
+          opacity: 1,
+          stagger: 0.1,
+          delay: 0.35,
+    
+        })
+        gsap.to("#footer h2 span", {
+          opacity: 0,
+          stagger: 0.05
+        })
+      })
+    }
+
 loadingAnimation()
 curserAnimation() 
 locomotiveAnimation()
 sheryAnimation()
+flagAnimation()
+footerAnimation()
 
-document.addEventListener("mousemove",function(dets){
-  gsap.to("#flag",{
-    x: dets.x,
-    y: dets.y
-  })
-})
-document.querySelector("#hero3").addEventListener("mouseenter",function(){
-  gsap.to("#flag",{
-    opacity: 1
-  })
-})
-document.querySelector("#hero3").addEventListener("mouseleave",function(){
-  gsap.to("#flag",{
-    opacity: 0
-  })
-})
+
 // document.querySelector("#footer h1").addEventListener("mousehover",function(){
 //   gsap.from("footer h1",{
 //     opacity: 0,
@@ -245,7 +243,8 @@ document.querySelector("#hero3").addEventListener("mouseleave",function(){
 //     }
 //   })
 // })
-document.querySelector("#footer h1").addEventListener("mouseenter", function() {
-  $('footer h1').textillate({ in: { effect: 'rollIn' } });
-});
+
+// document.querySelector("#footer h1").addEventListener("mouseenter", function() {
+//   $('footer h1').textillate({ in: { effect: 'rollIn' } });
+// });
 
